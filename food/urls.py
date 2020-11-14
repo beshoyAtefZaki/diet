@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from foodconf.views import login_page
 
+from doctors.views import profile_page
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+     url(r'^login/', login_page, name='login'),
+      url(r'^profile/', profile_page, name='profile')
 ]
