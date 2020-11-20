@@ -79,15 +79,13 @@
         </div>
         
         <div class="span8">
-            <h3>{{ patient.full_name}}</h3>
-            <h6>Age: {{ patient.age}} </h6>
-            <h6>Weight: {{ patient.weight}}</h6>
-            <h6>Hieght: {{ patient.hiegth}}</h6>
-
-            <h6>sex: {{ patient.sex}}</h6>
-            <h6>Daily Calories: {{ patient.calu}}</h6>
-            <h6>strat_date: {{ patient.strat_date}}</h6>
-            <h6>phone_number: {{ patient.phone_number}}</h6>
+            <h3>last 24 Recall</h3>
+            <h6>Date: {{ tfhr.date_for }} </h6>
+            <h6>Total Cal : {{ tfhr.enerygy }}</h6>
+            {% for i in tfhr.meals.all %}
+                   <p>  {{ i.meals }}  : {{ i.count }}</p>
+            {% endfor %}
+           
             <!-- <h6><a href="#">More... </a></h6> -->
         </div>
         

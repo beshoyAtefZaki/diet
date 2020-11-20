@@ -41,9 +41,12 @@ def get_dc_aptient(request):
 def patient_detail(request,patient_id ):
 	n_doctor = DoctorProfile.objects.get(user = request.user)
 	patient = Patient.objects.get(id=patient_id ,doctor= n_doctor)
-
-
-	return render(request ,"p_profile.html" , {"patient" :patient})
+	tfhr =   PatientTFR.objects.filter(patient= patient).last()                    
+	content={
+	 	"patient":patient ,
+	 	"tfhr" : tfhr
+ 		}
+	return render(request ,"p_profile.html" , content)
 
 @login_required(login_url='/login')
 def create_patient(request):
