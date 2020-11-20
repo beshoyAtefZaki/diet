@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render ,redirect
-from .models import DoctorProfile,Patient,sex_choises,activity ,PatientTFR
+from .models import DoctorProfile,Patient,sex_choises,activity ,PatientTFR,MealsTFR
 # Create your views here.
 
 from django.contrib.auth.decorators import login_required
@@ -69,17 +69,12 @@ def create_patient(request):
 
 @login_required(login_url='/login')
 def create_tfhr(request , p_id=None):
-	if p_id :
-		patient = Patient.objects.get(id=p_id)
-		tfhr = PatientTFR()
-		
-
-
-	else:
-		patient =None
-
+	# patient = Patient.objects.get(id=p_id)
+	tfhr  = PatientTFR.objects.get(id= p_id)
+	patient = tfhr.patient
 	units = Unit.objects.filter(item_group__isnull = False)
 	item_group = ItemGroup.objects.all()
+	meals = None
 	r_group = None
 	if (request.GET.get('group')) :
 				if request.GET.get('group') != 'all':
@@ -93,15 +88,45 @@ def create_tfhr(request , p_id=None):
 		else:
 			units = Unit.objects.filter( description__icontains =request.GET.get('search') ,item_group__isnull = False)
 
+	if (request.method == "POST"):
+		if request.POST.get("unitid") and request.POST.get("unit_count" ) and request.POST.get('tfhr') :
+			meal =tfhr.meals.create(patient=patient ,meals = Unit.objects.get(id = request.POST.get("unitid"))  ,
+				count =request.POST.get("unit_count"))
+			print(meal)
+			meal.save()
+			tfhr.save()
+	meals = tfhr.meals.all()
 		
+	
+	
 
 
 	item_group = ItemGroup.objects.all()
 	content ={
-	'patient' : patient ,
+	"meals":meals,
+	"patient":patient,
 	'units':units,
 	'item_group' : item_group ,
-	"group":r_group
+	"group":r_group,
+	'tfhr':tfhr
+
 		}
 
 	return render(request , 'recal.html' , content)
+
+def create_new_tfhr(request, p_id):
+	patient = Patient.objects.get(id=p_id)
+	tfhr = PatientTFR(patient= patient ,date_for =datetime.now() )
+	tfhr.save()
+	return redirect('/create-tfhr/%d'%tfhr.id)
+
+
+def post_tfhr_create(request):
+	if (request.method == "POST"):
+		if request.POST.get("unitid") and request.POST.get("unit_count" ) and request.POST.get('tfhr') :
+			meal =MealsTFR(patient=patient ,meals = Unit.objects.get(id = request.POST.get("unitid"))  ,
+				count =request.POST.get("unit_count") )
+			meal.save()
+			tfhr = PatientTFR.objects.get(id=request.POST.get('tfhr') )
+			tfhr.meals.add(meal)
+			tfhr.save()

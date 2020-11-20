@@ -9,6 +9,15 @@
 			<h6> Patient :{{ patient.full_name }} </h6>
 			<p> Target CAL : {{ patient.calu }} </p>
 
+
+			<p>  Date {{ tfhr.date_for}}</p>
+              {% for unit in meals %}
+
+              	<p> {{ unit }} </p>
+              {% endfor %}
+
+			<p>  Totat Cal {{ tfhr.enerygy }}</p>
+
 		</div>
 		<div class ='col-6'> 
 
@@ -16,8 +25,9 @@
 			<form class="form-inline">
 				
 				<div class="form-group col-md-12">
-			 
-				      
+					{% if tfhr %}
+			 			<input type="text" class="form-control" id="tfhr" placeholder="" value={{ tfhr.id }} hidden="1" name ="thfr">
+				      {% endif %}
 				      <input type="text" class="form-control" id="inputEmail4" placeholder="Search" name="search">
 				       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				   
@@ -55,11 +65,14 @@
 
 			      <td> 
 
-			<form >
+			<form method ='POST' action="{% url 'create-tfhr' p_id=tfhr.id %}"> {% csrf_token %}
   				<div class="form-row">
   					<div class="form-group col-md-12">
-				     <input type="text" class="form-control" id="unitId" placeholder="" value={{ unit.id}} hidden="1">
-				      <input type="text" class="form-control" id="inputEmail4" placeholder="Count">
+				     <input type="text" class="form-control" id="unitId" placeholder="" value={{ unit.id}} hidden="1" name ="unitid">
+				     {% if tfhr %}
+				     <input type="text" class="form-control" id="tfhr" placeholder="" value={{ tfhr.id }} hidden="1" name ="tfhr">
+				     {% endif %}
+				      <input type="text" class="form-control" id="inputEmail4" placeholder="Count" name="unit_count">
 				       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ADD</button>
 				    </div>
 
@@ -78,7 +91,7 @@
 		</div>
 
 		<div class='col-3'> 
-<form class="form-inline" method="get" action="{% url 'create-tfhr' p_id=patient.id %}"> 
+<form class="form-inline" method="get" action="{% url 'create-tfhr' p_id=tfhr.id %}"> 
  <!--  -->
   
  
@@ -96,7 +109,9 @@
 
 			{% endfor %}
       </select>
-
+      {% if tfhr %}
+      <input type="text" class="form-control" id="tfhr" placeholder="" value={{ tfhr.id }} hidden="1" name ="tfhr">
+      {% endif %}
       <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Filter  </button>
     </div>
    

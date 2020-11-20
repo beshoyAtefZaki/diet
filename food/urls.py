@@ -18,7 +18,7 @@ from django.contrib import admin
 from foodconf.views import login_page
 from django.conf import settings
 from django.conf.urls.static import static
-from doctors.views import profile_page ,get_dc_aptient ,patient_detail ,create_patient , create_tfhr
+from doctors.views import profile_page ,get_dc_aptient ,patient_detail ,create_patient , create_tfhr,create_new_tfhr
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
      url(r'^login/', login_page, name='login'),
@@ -29,5 +29,6 @@ urlpatterns = [
         url(r'^create_patient/', create_patient, name='create_patient'),
         # url(r'^tfrc/(?P<p_id>\d+)/$', create_tfhr, name='tfrc'),
         url(r'^create-tfhr/(?P<p_id>\d+)/$', create_tfhr, name='create-tfhr'),
+         url(r'^cntfhr/(?P<p_id>\d+)/$', create_new_tfhr, name='cntfhr'),
         # url(r'^tfrc/', create_tfhr, name='tfrc'),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
