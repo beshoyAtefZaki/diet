@@ -1,0 +1,114 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<!-- <style type="text/css">
+    
+
+
+
+
+</style>
+ -->
+
+
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<br><br>
+
+
+<div class="row">
+    <div class ="col-6">
+
+<div class="container-fluid well span6">
+	<div class="row-fluid">
+        <div class="span2" >
+		    <img xmlns="http://www.w3.org/2000/svg" class="img-circle">
+        </div>
+        
+        <div class="span8">
+            <h3>{{ patient.full_name}}</h3>
+            <h6>Age: {{ patient.age}} </h6>
+            <h6>Weight: {{ patient.weight}}</h6>
+            <h6>Hieght: {{ patient.hiegth}}</h6>
+
+            <h6>sex: {{ patient.sex}}</h6>
+            <h6>Daily Calories: {{ patient.calu}}</h6>
+            <h6>strat_date: {{ patient.strat_date}}</h6>
+            <h6>phone_number: {{ patient.phone_number}}</h6>
+            <!-- <h6><a href="#">More... </a></h6> -->
+        </div>
+        
+        <div class="span2">
+            <div class="btn-group">
+                <a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
+                    Action 
+                    <span class="icon-cog icon-white"></span><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{% url 'create-tfhr' p_id=patient.id %}"><span class="icon-wrench">
+                            
+                        </span> Create 24 Hour recal </a>
+
+
+                    </li>
+                  <!--   <li><a href="#"><span class="icon-trash"></span> Delete</a></li> -->
+                </ul>
+            </div>
+        </div>
+   </div>
+
+</div>
+</div>
+
+
+ <div class ="col-6">
+
+<div class="container-fluid well span6">
+    <div class="row-fluid">
+        
+        <div class="span2" >
+            <img xmlns="http://www.w3.org/2000/svg" class="img-circle">
+        </div>
+        
+        <div class="span8">
+            <h3>{{ patient.full_name}}</h3>
+            <h6>Age: {{ patient.age}} </h6>
+            <h6>Weight: {{ patient.weight}}</h6>
+            <h6>Hieght: {{ patient.hiegth}}</h6>
+
+            <h6>sex: {{ patient.sex}}</h6>
+            <h6>Daily Calories: {{ patient.calu}}</h6>
+            <h6>strat_date: {{ patient.strat_date}}</h6>
+            <h6>phone_number: {{ patient.phone_number}}</h6>
+            <!-- <h6><a href="#">More... </a></h6> -->
+        </div>
+        
+        <div class="span2">
+            <div class="btn-group">
+                <a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
+                    Action 
+                    <span class="icon-cog icon-white"></span><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><span class="icon-wrench"></span> Modify</a></li>
+                    <li><a href="#"><span class="icon-trash"></span> Delete</a></li>
+                </ul>
+            </div>
+        </div>
+    
+
+</div>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

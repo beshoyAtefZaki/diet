@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'foodconf',
+    'doctors',
+    'dietsystem',
 ]
 
 MIDDLEWARE = [
@@ -121,8 +123,21 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # default static files settings for PythonAnywhere.
-# see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
-MEDIA_ROOT = '/home/beshoyatef/food/media'
-MEDIA_URL = '/media/'
-STATIC_ROOT = '/home/beshoyatef/food/static'
+# # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
+# MEDIA_ROOT = '/home/beshoyatef/food/media'
+# MEDIA_URL = '/media/'
+# STATIC_ROOT = '/home/beshoyatef/food/static'
+# STATIC_URL = '/static/'
+
+
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+   
+]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'home/static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

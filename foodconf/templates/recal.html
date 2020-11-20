@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+<br> <br> <br>
+<div class="container-fluid">
+	<div class ="row">
+		<div class="col-3">
+			<h6> Patient :{{ patient.full_name }} </h6>
+			<p> Target CAL : {{ patient.calu }} </p>
+
+		</div>
+		<div class ='col-6'> 
+
+
+			<form class="form-inline">
+				
+				<div class="form-group col-md-12">
+			 
+				      
+				      <input type="text" class="form-control" id="inputEmail4" placeholder="Search" name="search">
+				       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				   
+				</div>
+				
+			</form>
+
+			<br> <br> <br>
+
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">الوحدة</th>
+			      <th scope="col">المعيار</th>
+			      <th scope="col">الوزن</th>
+			      <th scope="col">عدد الوحدات</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  
+			
+
+			{% for unit in units %}
+			<!-- <p>	{{ unit.description }}   </p> -->
+
+
+
+  			  <tr>
+			      <th scope="row">{{ forloop.counter }}</th>
+			      <td>{{ unit.description }} </td>
+			      <td>{{ unit.home_standrd }}</td>
+			      <td>{{ unit.home_standrd_wieght }}  جم </td>
+
+
+			      <td> 
+
+			<form >
+  				<div class="form-row">
+  					<div class="form-group col-md-12">
+				     <input type="text" class="form-control" id="unitId" placeholder="" value={{ unit.id}} hidden="1">
+				      <input type="text" class="form-control" id="inputEmail4" placeholder="Count">
+				       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ADD</button>
+				    </div>
+
+  				</div>
+  			</form></td>
+			    </tr>
+			   
+			   
+			{% endfor %}
+
+
+
+			  </tbody>
+			</table>
+			
+		</div>
+
+		<div class='col-3'> 
+<form class="form-inline" method="get" action="{% url 'create-tfhr' p_id=patient.id %}"> 
+ <!--  -->
+  
+ 
+    
+     
+     
+     <div class="form-group col-md-12">
+     <!--  <label for="inputhiegth">Groups</label> -->
+     <select id="inputState" class="form-control" name='group'>
+        <option selected> {% if group %} {{ group }}  {% endif %}</option>
+        <option> all </option>
+
+        {% for group in item_group %}
+			<option>   {{ group }}</option>
+
+			{% endfor %}
+      </select>
+
+      <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Filter  </button>
+    </div>
+   
+
+
+
+ 
+  
+</form>
+
+		
+		</div>
+
+
+	</div>
+
+
+
+</div>
+
+
+
+{% endblock %}
